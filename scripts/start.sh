@@ -7,7 +7,7 @@ scripts/docker_initialize.sh
 
 export DATESTAMP=$(date +%Y%m%d)
 
-echo "Fetching latest version from GitHub Packages (databasus/charts/databasus)..."
+echo "Fetching latest version from Docker Hub (databasus/databasus)..."
 VERSION=$(scripts/get_upstream_version.sh)
 export VERSION
 echo "Upstream version: ${VERSION}"
