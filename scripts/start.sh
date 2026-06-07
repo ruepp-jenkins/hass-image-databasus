@@ -5,6 +5,8 @@ echo "Starting build workflow"
 scripts/prepare.sh
 scripts/docker_initialize.sh
 
+DATESTAMP=$(date +%Y%m%d)
+
 # run build
 echo "[${BRANCH_NAME}] Building image: ${IMAGE_FULLNAME}"
 if [ "$BRANCH_NAME" = "master" ] || [ "$BRANCH_NAME" = "main" ]
@@ -12,14 +14,16 @@ then
     docker buildx build \
         --platform linux/amd64,linux/arm64 \
         -t ${IMAGE_FULLNAME}:latest \
+        -t ${IMAGE_FULLNAME}:${DATESTAMP} \
         --pull \
-        --push ./repo/
+        --push .
 else
     docker buildx build \
         --platform linux/amd64,linux/arm64 \
         -t ${IMAGE_FULLNAME}-test:${BRANCH_NAME} \
+        -t ${IMAGE_FULLNAME}:${DATESTAMP} \
         --pull \
-        --push ./repo/
+        --push .
 fi
 
 # cleanup
