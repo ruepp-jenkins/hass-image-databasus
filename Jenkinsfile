@@ -32,9 +32,11 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sshagent(['github.com-ssh']) {
-                    sh 'chmod +x scripts/*.sh'
-                    sh './scripts/start.sh'
+                withCredentials([sshUserPrivateKey(credentialsId: 'github.com-ssh', keyFileVariable: 'SSH_KEY_FILE')]) {
+                    withEnv(["GIT_SSH_COMMAND=ssh -i ${SSH_KEY_FILE} -o StrictHostKeyChecking=no"]) {
+                        sh 'chmod +x scripts/*.sh'
+                        sh './scripts/start.sh'
+                    }
                 }
             }
         }
