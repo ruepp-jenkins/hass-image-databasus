@@ -32,8 +32,11 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'chmod +x scripts/*.sh'
-                sh './scripts/start.sh'
+                withCredentials([usernamePassword(credentialsId: 'ruepp-jenkins', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
+                    sh 'git config credential.helper "!f() { echo username=$GIT_USERNAME; echo password=$GIT_PASSWORD; }; f"'
+                    sh 'chmod +x scripts/*.sh'
+                    sh './scripts/start.sh'
+                }
             }
         }
     }
