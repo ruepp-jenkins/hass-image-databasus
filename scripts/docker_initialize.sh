@@ -3,7 +3,6 @@ set -e
 echo "Initialize docker"
 
 echo ${DOCKER_API_PASSWORD} | docker login --username ${DOCKER_USERNAME} --password-stdin
-echo ${GITHUB_PKGS_TOKEN} | docker login ghcr.io --username github-token --password-stdin
 docker buildx install
 
 set +e
