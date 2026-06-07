@@ -51,6 +51,7 @@ pipeline {
                 webhookURL: DISCORD_WEBHOOK
             script {
                 try {
+                    cleanWs()
                 } catch (e) {
                     echo "Workspace cleanup skipped: no workspace was allocated"
                 }
