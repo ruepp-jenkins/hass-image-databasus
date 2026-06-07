@@ -1,8 +1,8 @@
 properties(
     [
         githubProjectProperty(
-            displayName: 'hass-image-databasus',
-            projectUrlStr: 'https://github.com/ruepp-jenkins/hass-image-databasus'
+            displayName: 'hassio-image-databasus',
+            projectUrlStr: 'https://github.com/ruepp-jenkins/hassio-image-databasus'
         ),
         disableConcurrentBuilds()
     ]
@@ -14,7 +14,7 @@ pipeline {
     }
 
     environment {
-        IMAGE_FULLNAME = 'ruepp/hass-image-databasus'
+        IMAGE_FULLNAME = 'ruepp/hassio-image-databasus'
         DOCKER_API_PASSWORD = credentials('DOCKER_API_PASSWORD')
     }
 
