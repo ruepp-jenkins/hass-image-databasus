@@ -16,6 +16,7 @@ pipeline {
     environment {
         IMAGE_FULLNAME = 'ruepp/hassio-image-databasus'
         DOCKER_API_PASSWORD = credentials('DOCKER_API_PASSWORD')
+        GITHUB_PKGS_TOKEN = credentials('GITHUB_PKGS_TOKEN')
     }
 
     triggers {

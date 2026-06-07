@@ -17,7 +17,7 @@ if [ "${LATEST_BUILT}" = "${VERSION}" ]; then
     exit 0
 fi
 
-export BASE_IMAGE="ghcr.io/databasus/charts/databasus:${VERSION}"
+export BASE_IMAGE="databasus/databasus:${VERSION}"
 scripts/docker_build.sh
 
 scripts/commit_version.sh
