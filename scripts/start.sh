@@ -5,26 +5,21 @@ echo "Starting build workflow"
 scripts/prepare.sh
 scripts/docker_initialize.sh
 
-DATESTAMP=$(date +%Y%m%d)
+export DATESTAMP=$(date +%Y%m%d)
 
-# run build
-echo "[${BRANCH_NAME}] Building image: ${IMAGE_FULLNAME}"
-if [ "$BRANCH_NAME" = "master" ] || [ "$BRANCH_NAME" = "main" ]
-then
-    docker buildx build \
-        --platform linux/amd64,linux/arm64 \
-        -t ${IMAGE_FULLNAME}:latest \
-        -t ${IMAGE_FULLNAME}:${DATESTAMP} \
-        --pull \
-        --push .
-else
-    docker buildx build \
-        --platform linux/amd64,linux/arm64 \
-        -t ${IMAGE_FULLNAME}-test:${BRANCH_NAME} \
-        -t ${IMAGE_FULLNAME}:${DATESTAMP} \
-        --pull \
-        --push .
+echo "Fetching latest version from ghcr.io/databasus/charts/databasus..."
+export VERSION=$(scripts/get_upstream_version.sh)
+echo "Upstream version: ${VERSION}"
+
+LATEST_BUILT=$(cat latest_version.txt 2>/dev/null | tr -d '[:space:]' || true)
+if [ "${LATEST_BUILT}" = "${VERSION}" ]; then
+    echo "Version ${VERSION} already built, nothing to do."
+    exit 0
 fi
 
-# cleanup
+export BASE_IMAGE="ghcr.io/databasus/charts/databasus:${VERSION}"
+scripts/docker_build.sh
+
+scripts/commit_version.sh
+
 scripts/docker_cleanup.sh

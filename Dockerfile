@@ -1,4 +1,4 @@
-ARG BUILD_FROM=databasus/databasus:latest
+ARG BUILD_FROM=ghcr.io/databasus/charts/databasus:latest
 FROM ${BUILD_FROM}
 
 RUN apt-get update \

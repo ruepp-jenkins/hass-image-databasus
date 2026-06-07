@@ -19,22 +19,7 @@ pipeline {
     }
 
     triggers {
-        URLTrigger(
-            cronTabSpec: 'H/30 * * * *',
-            labelRestriction: 'urltrigger',
-            entries: [
-                URLTriggerEntry(
-                    url: 'https://hub.docker.com/v2/namespaces/databasus/repositories/databasus/tags/latest',
-                    contentTypes: [
-                        JsonContent(
-                            [
-                                JsonContentEntry(jsonPath: '$.last_updated')
-                            ]
-                        )
-                    ]
-                )
-            ]
-        )
+        cron('H/30 * * * *')
     }
 
     stages {
