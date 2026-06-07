@@ -22,7 +22,7 @@ if [ -n "${LATEST_BUILT}" ]; then
 fi
 
 export BASE_IMAGE="databasus/databasus:v${VERSION}"
-scripts/docker_build.sh
+#scripts/docker_build.sh
 
 scripts/commit_version.sh
 
