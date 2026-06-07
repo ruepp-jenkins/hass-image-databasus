@@ -6,7 +6,7 @@ echo "[${BRANCH_NAME}] Building ${IMAGE_FULLNAME}:${VERSION} (${VERSION_DATESTAM
 
 if [ "$BRANCH_NAME" = "master" ] || [ "$BRANCH_NAME" = "main" ]; then
     docker buildx build \
-        --platform linux/amd64 \
+        --platform linux/amd64,linux/arm64 \
         --build-arg BUILD_FROM="${BASE_IMAGE}" \
         -t ${IMAGE_FULLNAME}:latest \
         -t ${IMAGE_FULLNAME}:${VERSION} \
@@ -15,7 +15,7 @@ if [ "$BRANCH_NAME" = "master" ] || [ "$BRANCH_NAME" = "main" ]; then
         --push .
 else
     docker buildx build \
-        --platform linux/amd64 \
+        --platform linux/amd64,linux/arm64 \
         --build-arg BUILD_FROM="${BASE_IMAGE}" \
         -t ${IMAGE_FULLNAME}-test:${BRANCH_NAME} \
         -t ${IMAGE_FULLNAME}:${VERSION} \
