@@ -12,7 +12,7 @@ if git diff --staged --quiet; then
     echo "latest_version.txt already contains ${VERSION}, nothing to commit"
 else
     git commit -m "ci: update to ${VERSION}"
-    git push origin main
+    git push
     echo "Pushed latest_version.txt to origin/${BRANCH_NAME}"
 fi
 
