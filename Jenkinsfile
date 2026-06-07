@@ -25,14 +25,9 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                script {
-                    if (currentBuild.getBuildCauses('com.cloudbees.jenkins.GitHubPushCause')) {
-                        currentBuild.result = 'NOT_BUILT'
-                        error('Skipping: triggered by a git push. Only cron and manual builds are allowed.')
-                    }
-                }
                 git branch: env.BRANCH_NAME,
-                url: env.GIT_URL
+                url: 'git@github.com:ruepp-jenkins/hassio-image-databasus.git',
+                credentialsId: 'github.com-ssh'
             }
         }
         stage('Build') {
