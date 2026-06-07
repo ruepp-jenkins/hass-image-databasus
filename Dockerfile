@@ -1,6 +1,13 @@
 ARG BUILD_FROM=databasus/databasus:latest
 FROM ${BUILD_FROM}
 
+# Injected at build time (see docker_build.sh: --build-arg BUILD_VERSION=${VERSION})
+ARG BUILD_VERSION=0.0.0
+LABEL \
+    io.hass.version="${BUILD_VERSION}" \
+    io.hass.type="addon" \
+    io.hass.arch="amd64|aarch64"
+
 RUN apt-get update \
     && apt-get install -y --no-install-recommends jq \
     && rm -rf /var/lib/apt/lists/*
