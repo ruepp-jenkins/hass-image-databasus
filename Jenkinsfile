@@ -45,7 +45,13 @@ pipeline {
                 link: env.BUILD_URL,
                 title: JOB_NAME,
                 webhookURL: DISCORD_WEBHOOK
-            cleanWs()
+            script {
+                try {
+                    cleanWs()
+                } catch (e) {
+                    echo "Workspace cleanup skipped: no workspace was allocated"
+                }
+            }
         }
     }
 }
