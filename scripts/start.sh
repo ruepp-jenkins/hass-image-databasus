@@ -8,7 +8,8 @@ scripts/docker_initialize.sh
 export DATESTAMP=$(date +%Y%m%d)
 
 echo "Fetching latest version from ghcr.io/databasus/charts/databasus..."
-export VERSION=$(scripts/get_upstream_version.sh)
+VERSION=$(scripts/get_upstream_version.sh)
+export VERSION
 echo "Upstream version: ${VERSION}"
 
 LATEST_BUILT=$(cat latest_version.txt 2>/dev/null | tr -d '[:space:]' || true)
