@@ -1,2 +1,3 @@
 # hass-image-databasus
-hass compatible database image
+
+This image is needed to make `databasus/databasus` compatible with HomeAssistant app structure.
