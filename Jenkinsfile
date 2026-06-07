@@ -26,8 +26,8 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: env.BRANCH_NAME,
-                    credentialsId: 'ruepp-jenkins',
-                    url: env.GIT_URL
+                url: 'git@github.com:ruepp-jenkins/hassio-image-databasus.git',
+                credentialsId: 'github.com-ssh'
             }
         }
         stage('Build') {
