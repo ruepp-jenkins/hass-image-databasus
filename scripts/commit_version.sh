@@ -4,8 +4,8 @@ set -e
 echo "${VERSION}" > latest_version.txt
 echo "Updated latest_version.txt to ${VERSION}"
 
-git config user.email "jenkins@noreply.ruepp.info"
-git config user.name "Jenkins"
+#git config user.email "jenkins@noreply.ruepp.info"
+#git config user.name "Jenkins"
 git add latest_version.txt
 
 if git diff --staged --quiet; then
