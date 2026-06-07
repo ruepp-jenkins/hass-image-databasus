@@ -22,5 +22,16 @@ if [ -f "${OPTIONS_FILE}" ] && command -v jq >/dev/null 2>&1; then
     done < <(jq -r 'to_entries[] | "\(.key)=\(.value)"' "${OPTIONS_FILE}")
 fi
 
+echo "Symlink /databasus-data -> /data"
+mkdir -p /data/databasus-data
+
+if [ -d /databasus-data ] && [ ! -L /databasus-data ]; then
+  echo "Found files in /databasus-data - move them to persisting storage"
+  cp -a /databasus-data/. /data/databasus-data/ 2>/dev/null || true
+  rm -rf /databasus-data
+fi
+
+ln -sfn /data/databasus-data /databasus-data
+
 echo "Handing off to upstream entrypoint (/app/start.sh)..."
 exec /app/start.sh
